@@ -1,8 +1,6 @@
 # ActiveResourceAssociatable
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/active_resource_associatable`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem is used to establish the association between your ActiveResource class to ActiveRecord class.
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```include ActiveResourceAssociatable``` in your ActiveRecord or ActiveResource model. Build the association by using command has_many_activeresources, belongs_to_active_resource etc.
 
 ## Development
 
