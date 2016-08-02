@@ -19,7 +19,7 @@ class Reader < ActiveResource::Base
 end
 
 class Book < ActiveRecord::Base
-  extend ActiveResourceAssociatable
+  include ActiveResourceAssociatable
 
   belongs_to_activeresource :user
 end
@@ -35,7 +35,7 @@ describe ActiveResourceAssociatable do
     book4 = FactoryGirl.create(:book, user_id: @user.id)
   end
   
-  it "should return many books without class name" do
+  it "should return many books for has_many_activeresources association without class name" do
     user = User.find(1)
 
     expect(user.firstname).to eq("Neeraj")
@@ -48,7 +48,7 @@ describe ActiveResourceAssociatable do
     expect(user.books.second.title).to eq(@book2.title)
   end
 
-  it "should return many books with class name" do
+  it "should return many books for has_many_activeresources association with class name" do
     Reader.stubs(:find).returns(@user)
     reader = Reader.find(1)
 
@@ -60,6 +60,11 @@ describe ActiveResourceAssociatable do
     expect(reader.books.size).to eq(4)
     expect(reader.books.first.title).to eq(@book1.title)
     expect(reader.books.second.title).to eq(@book2.title)
+  end
+
+  it "should return one user for belongs_to_resource association" do
+    book = Book.create(title: "New Book", user_id: @user.id)
+    puts book.user.inspect
   end
 
 end

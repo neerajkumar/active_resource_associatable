@@ -1,39 +1,21 @@
 require 'active_support/concern'
 require "active_resource_associatable/version"
-require "active_resource_associatable/has_many"
+require "active_resource_associatable/has_many_activeresources"
+require "active_resource_associatable/belongs_to_activeresource"
 
 module ActiveResourceAssociatable
   extend ActiveSupport::Concern
 
   module ClassMethods
     def has_many_activeresources(table_name, scope = nil, options = {}, &extension)
-      puts self.id.inspect
-      klass_name = options[:class_name] || table_name
-      puts self.inspect
-      self.class_eval do
-        define_method(table_name) do
-          klass_name.to_s.classify.constantize.where("#{self.class.to_s.tableize.singularize.gsub('_resources', '')}_id=#{self.id}")
-        end
-      end
+      AssociationBuilder::HasManyActiveResources.build(self, table_name, scope, options, &extension)
+    end
+
+    def belongs_to_activeresource(klass_name, scope = nil, options = {})
+      AssociationBuilder::BelongsToActiveResource.build(self, klass_name, scope, options)
     end
   end
   
-  def belongs_to_activeresource(klass_name, options={})
-    define_method("#{klass_name.to_s.downcase}") do
-      if self.is_a?(ActiveResource::Base)
-        self.set_uid if self.respond_to?(:set_uid)
-        klass_name.to_s.classify.constantize.find(self.id)
-      else
-        #TODO: Needs to modify the code  
-        if klass_name.to_s == "seller_type"   
-          ("#{klass_name.to_s}_reference").classify.constantize.find("#{self.send(klass_name.to_s + '_code')}") if "#{self.send(klass_name.to_s + '_code')}".present?
-        else
-          ("#{klass_name.to_s}_resource").classify.constantize.find("#{self.send(klass_name.to_s + '_id')}") if "#{self.send(klass_name.to_s + '_id')}".present?
-        end 
-      end
-    end
-  end
-
   def has_and_belongs_to_many_activeresources(table_name, options={})
     if !options[:class_name].present?
       self.class_eval do
