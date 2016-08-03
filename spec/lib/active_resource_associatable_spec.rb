@@ -24,6 +24,18 @@ class Book < ActiveRecord::Base
   belongs_to_activeresource :user
 end
 
+class Account < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_one_activeresource :user
+end
+
+class Image < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_and_belongs_to_many_activeresources :users
+end
+
 describe ActiveResourceAssociatable do
 
   before(:all) do
@@ -64,7 +76,17 @@ describe ActiveResourceAssociatable do
 
   it "should return one user for belongs_to_resource association" do
     book = Book.create(title: "New Book", user_id: @user.id)
-    puts book.user.inspect
+    expect(book.user).to eq(@user)
   end
 
+  it "should return one user for has_one_activeresource association" do
+    account = Account.create(user_id: @user.id)
+    expect(account.user).to eq(@user)
+  end
+
+  it "should return many users for has_and_belongs_to_many_activeresources association" do 
+    image = Image.create(filename: "profile_pic.jpg")
+
+    puts image.users.inspect
+  end
 end

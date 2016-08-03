@@ -10,6 +10,19 @@ ActiveRecord::Schema.define do
 
   create_table :books, :force => true do |t|
     t.string :title
-    t.string :user_id
+    t.integer :user_id
+  end
+
+  create_table :accounts do |t|
+    t.integer :user_id
+  end
+
+  create_table :images_users, id: false do |t|
+    t.integer :image_id
+    t.integer :user_id
+  end
+
+  create_table :images do |t|
+    t.string :filename
   end
 end
