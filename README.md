@@ -1,6 +1,6 @@
 # ActiveResourceAssociatable
 
-This gem is used to establish the association between your ActiveResource class to ActiveRecord class.
+This gem is used to establish the association between your ActiveResource class to ActiveRecord class. Why? Because there is no other ruby library to provide such functionality. Its simple and taking care of all options, scopes etc with your associations.
 
 ## Installation
 

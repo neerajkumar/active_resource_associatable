@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + "./../lib/active_resource_associatable/"
 
 require 'mocha'
 require 'mocha/test_unit'
+require 'minitest/autorun'
 require 'active_resource'
 require 'active_record'
 require 'factory_girl'

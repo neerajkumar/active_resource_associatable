@@ -40,7 +40,9 @@ describe ActiveResourceAssociatable do
 
   before(:all) do
     @user = FactoryGirl.build(:user)
-    User.stubs(:find).returns(@user)
+    @mock = Minitest::Mock.new
+    @mock.stubs(:find, @user, ['User'])
+    # User.stubs(:find).returns(@user)
     @book1 = FactoryGirl.create(:book, user_id: @user.id)
     @book2 = FactoryGirl.create(:book, user_id: @user.id)
     book3 = FactoryGirl.create(:book, user_id: @user.id)
@@ -50,14 +52,14 @@ describe ActiveResourceAssociatable do
   it "should return many books for has_many_activeresources association without class name" do
     user = User.find(1)
 
-    expect(user.firstname).to eq("Neeraj")
-    expect(user.lastname).to eq("Kumar")
-    expect(user.username).to eq("neeraj")
-    expect(user.email).to eq("neeraj.kumar@gmail.com")
+    user.firstname.must_equal "Neeraj"
+    user.lastname.must_equal "Kumar"
+    user.username.must_equal "neeraj"
+    user.email.must_equal "neeraj.kumar@gmail.com"
 
-    expect(user.books.size).to eq(4)
-    expect(user.books.first.title).to eq(@book1.title)
-    expect(user.books.second.title).to eq(@book2.title)
+    user.books.size.must_equal 4
+    user.books.first.title.must_equal @book1.title
+    user.books.second.title.must_equal @book2.title
   end
 
   it "should return many books for has_many_activeresources association with class name" do
