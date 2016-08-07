@@ -40,9 +40,7 @@ describe ActiveResourceAssociatable do
 
   before(:all) do
     @user = FactoryGirl.build(:user)
-    @mock = Minitest::Mock.new
-    @mock.stubs(:find, @user, ['User'])
-    # User.stubs(:find).returns(@user)
+    Book.delete_all
     @book1 = FactoryGirl.create(:book, user_id: @user.id)
     @book2 = FactoryGirl.create(:book, user_id: @user.id)
     book3 = FactoryGirl.create(:book, user_id: @user.id)
@@ -50,45 +48,55 @@ describe ActiveResourceAssociatable do
   end
   
   it "should return many books for has_many_activeresources association without class name" do
-    user = User.find(1)
+    User.stub :find, @user do 
+      user = User.find(1)
 
-    user.firstname.must_equal "Neeraj"
-    user.lastname.must_equal "Kumar"
-    user.username.must_equal "neeraj"
-    user.email.must_equal "neeraj.kumar@gmail.com"
+      user.firstname.must_equal "Neeraj"
+      user.lastname.must_equal "Kumar"
+      user.username.must_equal "neeraj"
+      user.email.must_equal "neeraj.kumar@gmail.com"
 
-    user.books.size.must_equal 4
-    user.books.first.title.must_equal @book1.title
-    user.books.second.title.must_equal @book2.title
+      user.books.size.must_equal 4
+      user.books.first.title.must_equal @book1.title
+      user.books.second.title.must_equal @book2.title
+    end
   end
 
   it "should return many books for has_many_activeresources association with class name" do
-    Reader.stubs(:find).returns(@user)
-    reader = Reader.find(1)
+    reader = FactoryGirl.build(:reader)
+    Reader.stub :find, reader do 
+      reader = Reader.find(1)
 
-    expect(reader.firstname).to eq("Neeraj")
-    expect(reader.lastname).to eq("Kumar")
-    expect(reader.username).to eq("neeraj")
-    expect(reader.email).to eq("neeraj.kumar@gmail.com")
+      reader.firstname.must_equal "Neeraj"
+      reader.lastname.must_equal "Kumar"
+      reader.username.must_equal "neeraj"
+      reader.email.must_equal "neeraj.kumar@gmail.com"
 
-    expect(reader.books.size).to eq(4)
-    expect(reader.books.first.title).to eq(@book1.title)
-    expect(reader.books.second.title).to eq(@book2.title)
+      reader.studying_materials.size.must_equal 4
+      reader.studying_materials.first.title.must_equal @book1.title
+      reader.studying_materials.second.title.must_equal @book2.title
+    end
   end
 
   it "should return one user for belongs_to_resource association" do
-    book = Book.create(title: "New Book", user_id: @user.id)
-    expect(book.user).to eq(@user)
+    User.stub :find, @user do 
+      book = Book.create(title: "New Book", user_id: @user.id)
+      book.user.must_equal @user
+    end
   end
 
   it "should return one user for has_one_activeresource association" do
-    account = Account.create(user_id: @user.id)
-    expect(account.user).to eq(@user)
+    User.stub :find, @user do 
+      account = Account.create(user_id: @user.id)
+      account.user.must_equal @user
+    end
   end
 
-  it "should return many users for has_and_belongs_to_many_activeresources association" do 
-    image = Image.create(filename: "profile_pic.jpg")
+  it "should return many users for has_and_belongs_to_many_activeresources association" do
+    User.stub :find, @user do 
+      image = Image.create(filename: "profile_pic.jpg")
 
-    puts image.users.inspect
+      puts image.users.inspect
+    end
   end
 end

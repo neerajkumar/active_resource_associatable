@@ -8,6 +8,7 @@ module ActiveResourceAssociatable
 
   module ClassMethods
     def has_many_activeresources(table_name, scope = nil, options = {}, &extension)
+      puts "options: #{options}"
       AssociationBuilder::HasManyActiveResources.build(self, table_name, scope, options, &extension)
     end
 
