@@ -7,9 +7,8 @@ module ActiveResourceAssociatable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def has_many_activeresources(table_name, scope = nil, options = {}, &extension)
-      puts "options: #{options}"
-      AssociationBuilder::HasManyActiveResources.build(self, table_name, scope, options, &extension)
+    def has_many_activeresources(table_name, options = {})
+      AssociationBuilder::HasManyActiveResources.build(self, table_name, options)
     end
 
     def belongs_to_activeresource(klass_name, scope = nil, options = {})

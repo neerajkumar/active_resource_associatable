@@ -11,6 +11,7 @@ ActiveRecord::Schema.define do
   create_table :books, :force => true do |t|
     t.string :title
     t.integer :user_id
+    t.integer :reader_id
   end
 
   create_table :accounts do |t|

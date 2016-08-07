@@ -23,7 +23,8 @@ FactoryGirl.define do
 
   factory :book do
     title "Title1"
-    association :user, strategy: :build 
+    association :user, strategy: :build
+    association :reader, strategy: :build 
   end
 
 end
