@@ -94,10 +94,12 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return many users for has_and_belongs_to_many_activeresources association" do
-    User.stub :find, @user do 
+    User.stub :find, [] do 
       image = Image.create(filename: "profile_pic.jpg")
-
-      puts image.users.inspect
+      assert image.users.empty?
+      image.users << @user
+      assert !image.users.empty?
+      assert image.users.include?(@user)
     end
   end
 end

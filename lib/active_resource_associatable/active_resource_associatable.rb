@@ -11,16 +11,16 @@ module ActiveResourceAssociatable
       AssociationBuilder::HasManyActiveResources.build(self, table_name, options)
     end
 
-    def belongs_to_activeresource(klass_name, scope = nil, options = {})
-      AssociationBuilder::BelongsToActiveResource.build(self, klass_name, scope, options)
+    def belongs_to_activeresource(klass_name, options = {})
+      AssociationBuilder::BelongsToActiveResource.build(self, klass_name, options)
     end
 
-    def has_and_belongs_to_many_activeresources(klass_name, scope = nil, options = {})
-      AssociationBuilder::HasAndBelongsToManyActiveResources.build(self, klass_name, scope, options)
+    def has_and_belongs_to_many_activeresources(klass_name, options = {})
+      AssociationBuilder::HasAndBelongsToManyActiveResources.build(self, klass_name, options)
     end
 
     def has_one_activeresource(klass_name, options={})
-      AssociationBuilder::HasOneActiveResource.build(self, klass_name, scope = nil, options = {})
+      AssociationBuilder::HasOneActiveResource.build(self, klass_name, options)
     end
   end
 
