@@ -26,4 +26,14 @@ ActiveRecord::Schema.define do
   create_table :images do |t|
     t.string :filename
   end
+
+  create_table :friends do |t|
+    t.string :firstname
+    t.string :lastname
+  end
+
+  create_table :friendships do |t|
+    t.integer :user_id
+    t.integer :friend_id
+  end
 end

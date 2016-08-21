@@ -6,7 +6,7 @@ class User < ActiveResource::Base
   include ActiveResourceAssociatable
 
   has_many_activeresources :books
-
+  has_many_through_activeresources :friends, through: :friendships
 end
 
 class Reader < ActiveResource::Base
@@ -29,12 +29,27 @@ class Account < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_one_activeresource :user
+
 end
 
 class Image < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_and_belongs_to_many_activeresources :users
+end
+
+class Friend < ActiveRecord::Base
+
+  include ActiveResourceAssociatable
+
+  has_many_through_activeresources :users, through: :friendships
+end
+
+class Friendship < ActiveRecord::Base
+  include ActiveResourceAssociatable
+  
+  belongs_to_activeresource :user
+  belongs_to :friend
 end
 
 describe ActiveResourceAssociatable do
@@ -102,4 +117,28 @@ describe ActiveResourceAssociatable do
       assert image.users.include?(@user)
     end
   end
+
+  it "should return many users for has_and_belongs_to_many_activeresources association for ActiveRecord class" do
+    User.stub :find, [@user] do 
+      friend = Friend.create(firstname: "Neeraj", lastname: "Kumar")
+      friendship = Friendship.create(user_id: @user.id, friend_id: friend.id)
+      assert !friend.users.empty?
+      assert friend.users.include?(@user)
+    end
+  end
+
+  it "should return many users for has_and_belongs_to_many_activeresources association for ActiveResource class" do
+    User.stub :find, @user do
+      Friendship.delete_all
+      user = User.first
+      assert user.friends.empty?
+      
+      friend = FactoryGirl.create(:friend)
+      friendship = Friendship.create(user_id: user.id, friend_id: friend.id)
+
+      assert !user.friends.empty?
+      assert user.friends.include?(friend)
+    end
+  end
+
 end

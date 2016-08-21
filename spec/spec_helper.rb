@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'active_resource'
 require 'active_record'
 require 'factory_girl'
-require 'pry-rails'
+require 'byebug'
 
 load(File.dirname(__FILE__) + "/factories.rb")
 

@@ -1,6 +1,7 @@
 require_relative "./has_many_activeresources"
 require_relative "./belongs_to_activeresource"
 require_relative "./has_and_belongs_to_many_activeresources"
+require_relative "./has_many_through_activeresources"
 require_relative "./has_one_activeresource"
 
 module ActiveResourceAssociatable
@@ -21,6 +22,10 @@ module ActiveResourceAssociatable
 
     def has_one_activeresource(klass_name, options={})
       AssociationBuilder::HasOneActiveResource.build(self, klass_name, options)
+    end
+
+    def has_many_through_activeresources(klass_name, options)
+      AssociationBuilder::HasManyThroughActiveResources.build(self, klass_name, options)
     end
   end
 

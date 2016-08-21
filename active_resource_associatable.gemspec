@@ -35,9 +35,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "activerecord", "~> 4.2.5"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "mocha"
-  spec.add_development_dependency "factory_girl_rails"
+  spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "sqlite3"
-  spec.add_development_dependency "pry-rails"
+  spec.add_development_dependency "byebug"
 
   spec.add_dependency "json"
 end

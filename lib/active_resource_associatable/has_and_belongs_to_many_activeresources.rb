@@ -2,7 +2,6 @@ module AssociationBuilder
 
   class HasAndBelongsToManyActiveResources
 
-
     def self.build(model, table_name, options)
       klass_name = options[:class_name] || table_name
       model.class_eval do

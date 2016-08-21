@@ -27,4 +27,14 @@ FactoryGirl.define do
     association :reader, strategy: :build 
   end
 
+  factory :friend do
+    firstname "Anurag"
+    lastname "Saxena"
+  end
+
+  factory :friendship do
+    association :friend, strategy: :build
+    association :user, strategy: :build
+  end
+
 end
