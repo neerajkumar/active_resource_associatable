@@ -92,7 +92,6 @@ class Library < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_many_activeresources :readers
-
 end
 ```
 ```has_many_activeresources``` also comes with options ```class_name```.
@@ -115,6 +114,17 @@ end
 ```
 Now you can call ```reader.studying_materials``` which will return the array of objects of non ActiveResource class Book.
 
+User can also call books using a specific foreign key. For Example,
+```ruby
+class UserResource < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_many_activeresources :books, foreign_key: "user_id"
+end
+```
+
 ### Has And Belongs To Many ActiveResources
 ```active_resource_associatable``` provides many to many associations between ActiveResource and ActiveRecord. 
 User class is a ActiveResource class and can have many images. Likewise, Image which is a ActiveRecord class can have many users.
@@ -133,6 +143,24 @@ class Image < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_and_belongs_to_many_activeresources :users
+end
+```
+
+You can use class_name and foreign_key as in ```has_many_activeresources```.
+```ruby
+class UserResource < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_and_belongs_to_many_activeresources :images, foreign_key: "user_id"
+end
+```
+```ruby
+class Image < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_and_belongs_to_many_activeresources :users, class_name: 'UserResource'
 end
 ```
 

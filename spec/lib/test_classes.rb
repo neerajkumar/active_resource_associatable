@@ -1,9 +1,9 @@
-class User < ActiveResource::Base
+class UserResource < ActiveResource::Base
   self.site = ""
 
   include ActiveResourceAssociatable
 
-  has_many_activeresources :books
+  has_many_activeresources :books, foreign_key: "user_id"
   has_and_belongs_to_many_activeresources :images
   has_many_through_activeresources :friends, through: :friendships
 end
@@ -51,7 +51,7 @@ end
 class Image < ActiveRecord::Base
   include ActiveResourceAssociatable
 
-  has_and_belongs_to_many_activeresources :users
+  has_and_belongs_to_many_activeresources :users, class_name: 'UserResource'
 end
 
 class Friend < ActiveRecord::Base

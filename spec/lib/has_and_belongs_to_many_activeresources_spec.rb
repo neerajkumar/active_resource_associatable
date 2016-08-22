@@ -4,17 +4,12 @@ describe ActiveResourceAssociatable do
 
   before(:all) do
     @user = FactoryGirl.build(:user)
-    Book.delete_all
-    @book1 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    @book2 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book3 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book4 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
   end
 
   it "should return many users for has_and_belongs_to_many_activeresources association for ActiveRecord class" do
     Image.delete_all
     ActiveRecord::Base.connection.execute("delete from images_users")
-    User.stub :find, [@user] do 
+    UserResource.stub :find, [@user] do 
       image = Image.create(filename: "profile_pic.jpg")
       image.users << @user
       ActiveRecord::Base.connection.execute("insert into images_users (user_id, image_id) values (#{@user.id}, #{image.id})")
@@ -26,8 +21,8 @@ describe ActiveResourceAssociatable do
   it "should return many users for has_and_belongs_to_many_activeresources association for ActiveResource class" do
     Image.delete_all
     ActiveRecord::Base.connection.execute("delete from images_users")
-    User.stub :find, @user do
-      user = User.first
+    UserResource.stub :find, @user do
+      user = UserResource.first
       assert user.images.empty?
       image = Image.create(filename: "profile_pic.png")
       ActiveRecord::Base.connection.execute("insert into images_users (user_id, image_id) values (#{user.id}, #{image.id})")

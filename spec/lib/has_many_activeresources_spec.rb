@@ -12,8 +12,8 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return many books for has_many_activeresources association without class name option" do
-    User.stub :find, @user do 
-      user = User.find(1)
+    UserResource.stub :find, @user do 
+      user = UserResource.find(1)
 
       user.firstname.must_equal "Neeraj"
       user.lastname.must_equal "Kumar"
@@ -51,6 +51,5 @@ describe ActiveResourceAssociatable do
       assert library.readers.include?(reader)
     end
   end
-
 
 end

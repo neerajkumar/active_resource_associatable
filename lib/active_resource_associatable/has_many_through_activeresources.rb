@@ -10,7 +10,7 @@ module AssociationBuilder
           if self.is_a?(ActiveResource::Base)
             associated_ids = middle_table.classify.constantize.where("#{model.collection_name.singularize}_id = ?", self.id).pluck("#{klass_name.singularize}_id".to_sym)
             klass_name.classify.constantize.where(id: associated_ids)
-          else
+          elsif self.is_a?(ActiveRecord::Base)
             associated_ids = middle_table.classify.constantize.where("#{model.table_name.singularize}_id = ?", self.id).pluck("#{klass_name.singularize}_id".to_sym)
             klass_name.classify.constantize.find(:all, params:{id: associated_ids})
           end

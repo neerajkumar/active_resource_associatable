@@ -8,7 +8,7 @@ module AssociationBuilder
         define_method("#{klass_name.to_s.downcase}") do
           if self.is_a?(ActiveResource::Base)
             klass_name.to_s.classify.constantize.find_by("#{model.element_name}_id": self.id)
-          else
+          elsif self.is_a?(ActiveRecord::Base)
             klass_name.to_s.classify.constantize.find("#{self.send(klass_name.to_s + '_id')}")
           end
         end

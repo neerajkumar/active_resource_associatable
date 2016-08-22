@@ -5,7 +5,7 @@ FactoryGirl.define do
     description "MyString"
   end
   
-  factory :user do
+  factory :user, :class => 'UserResource' do
     id 1
     firstname "Neeraj"
     lastname "Kumar"
