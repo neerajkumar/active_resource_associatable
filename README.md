@@ -50,8 +50,6 @@ class Reader < ActiveResource::Base
 
   include ActiveResourceAssociatable
 
-  has_many_activeresources :studying_materials, class_name: "Book"
-  belongs_to_activeresource :library
   has_one_activeresource :account
 end
 ```
@@ -62,7 +60,53 @@ class Account < ActiveRecord::Base
 
   belongs_to_activeresource :reader
 end
+
+### Belongs To ActiveResource
+The same example which explained above in Has One ActiveResource section could be an example of belongs_to_activeresource.
+```belongs_to_activeresource``` can also be applied in case of ```has_many_activeresources`` associations.
+
+### Has Many ActiveResources
+User is ActiveResource class which maintains the has many relationships with non ActiveResource class Book.
+
+```ruby
+class User < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_many_activeresources :books
+end
 ```
+```ruby
+class Book < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  belongs_to_activeresource :user
+end
+```
+Now you can easily call ```user.books``` which will return the array of objects of non ActiveResource class Book.
+
+```has_many_activeresources``` also comes with options ```class_name```.
+
+```ruby
+class Reader < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_many_activeresources :studying_materials, class_name: "Book"
+end
+```
+```ruby
+class Book < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  belongs_to_activeresource :reader
+end
+```
+Now you can call ```reader.studying_materials``` which will return the array of objects of non ActiveResource class Book.
+
+### Has And Belongs To Many ActiveResources
 
 ## Development
 
