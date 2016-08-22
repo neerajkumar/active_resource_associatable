@@ -5,10 +5,7 @@ describe ActiveResourceAssociatable do
   before(:all) do
     @user = FactoryGirl.build(:user)
     Book.delete_all
-    @book1 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
     @book2 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book3 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book4 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
     @price = FactoryGirl.build(:price, book_id: @book2.id)
   end
 

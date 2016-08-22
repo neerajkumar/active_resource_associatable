@@ -4,11 +4,6 @@ describe ActiveResourceAssociatable do
 
   before(:all) do
     @user = FactoryGirl.build(:user)
-    Book.delete_all
-    @book1 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    @book2 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book3 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
-    book4 = FactoryGirl.create(:book, user_id: @user.id, reader_id: @user.id)
   end
 
   it "should return many users for has_many_through_activeresources association for ActiveRecord class" do
