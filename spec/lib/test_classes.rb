@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_one_activeresource :user
-  belongs_to_activeresource :account
+  belongs_to_activeresource :reader
 end
 
 class Library < ActiveRecord::Base

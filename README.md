@@ -20,7 +20,49 @@ Or install it yourself as:
 
 ## Usage
 
-```include ActiveResourceAssociatable``` in your ActiveRecord or ActiveResource model. Build the association by using command has_many_activeresources, belongs_to_active_resource etc.
+```include ActiveResourceAssociatable``` in your ActiveRecord or ActiveResource model. Now you can easily call the methods of either of your ActiveRecord or ActiveResource models. This gem facilitates you to call ActiveResource objects in the same way as you call in any of your ActiveRecord model. It supports calls ```has_one_activeresource```, ```belongs_to_activeresource```, ```has_many_activeresources```, ```has_and_belongs_to_many_activeresources``` and ```has_many_through_activeresources```.
+
+### Has One ActiveResource
+Account is non ActiveResource class which is maintaining has one relationship with ActiveRecord class User. 
+
+```ruby
+class User < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  belongs_to_activeresource :account
+end
+```
+```ruby
+class Account < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_one_activeresource :user
+end
+```
+
+Whereas Reader is a ActiveResource class, but maintaining has one relationship with Account.
+
+```ruby
+class Reader < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_many_activeresources :studying_materials, class_name: "Book"
+  belongs_to_activeresource :library
+  has_one_activeresource :account
+end
+```
+
+```ruby
+class Account < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  belongs_to_activeresource :reader
+end
+```
 
 ## Development
 
