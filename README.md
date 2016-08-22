@@ -129,7 +129,7 @@ end
 ```
 
 ### Has Many Through ActiveResources
-``has_many_through_activeresources``` can also be achieved using ```active_resource_associatable```. User can have many friends through friendships. Similarly, a friend can also have many users through friendships.
+```has_many_through_activeresources``` can also be achieved using ```active_resource_associatable```. User can have many friends through friendships. Similarly, a friend can also have many users through friendships.
 
 ```ruby
 class User < ActiveResource::Base
