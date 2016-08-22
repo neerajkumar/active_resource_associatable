@@ -60,6 +60,7 @@ class Account < ActiveRecord::Base
 
   belongs_to_activeresource :reader
 end
+```
 
 ### Belongs To ActiveResource
 The same example which explained above in Has One ActiveResource section could be an example of belongs_to_activeresource.
