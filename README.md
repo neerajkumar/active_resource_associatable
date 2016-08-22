@@ -108,7 +108,55 @@ end
 Now you can call ```reader.studying_materials``` which will return the array of objects of non ActiveResource class Book.
 
 ### Has And Belongs To Many ActiveResources
+```active_resource_associatable``` provides many to many associations between ActiveResource and ActiveRecord. 
+User class is a ActiveResource class and can have many images. Likewise, Image which is a ActiveRecord class can have many users.
 
+```ruby
+class User < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_and_belongs_to_many_activeresources :images
+end
+```
+```ruby
+class Image < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_and_belongs_to_many_activeresources :users
+end
+```
+
+### Has Many Through ActiveResources
+``has_many_through_activeresources``` can also be achieved using ```active_resource_associatable```. User can have many friends through friendships. Similarly, a friend can also have many users through friendships.
+
+```ruby
+class User < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  has_many_through_activeresources :friends, through: :friendships
+end
+```
+```ruby
+class Friend < ActiveRecord::Base
+
+  include ActiveResourceAssociatable
+
+  has_many_through_activeresources :users, through: :friendships
+end
+```
+```ruby
+class Friendship < ActiveRecord::Base
+  include ActiveResourceAssociatable
+  
+  belongs_to_activeresource :user
+  belongs_to :friend
+end
+```
+ 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
