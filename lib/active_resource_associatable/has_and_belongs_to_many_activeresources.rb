@@ -7,11 +7,15 @@ module AssociationBuilder
       model.class_eval do
         define_method(klass_name) do
           sql_query = "select #{klass_name.to_s.singularize}_id from #{[self.class.to_s.gsub('Resource', '').tableize, klass_name.to_s.gsub('_resources', '')].sort.join('_')} where #{self.class.to_s.tableize.gsub('_resources', '').singularize}_id=#{self.id}"
-          results = model.find_by_sql(sql_query)
           if self.is_a?(ActiveResource::Base)
-            klass_name.to_s.classify.constantize.find(:all, params:{id: results})
+            results = ActiveRecord::Base.connection.execute(sql_query)
+            resource_id = results.present? ? results[0]["#{klass_name.to_s.singularize}_id"] : nil
+            results.present? ? klass_name.to_s.classify.constantize.where(id: resource_id) : []
           else
-            klass_name.to_s.classify.constantize.where(id: results)
+            results = ActiveRecord::Base.connection.execute(sql_query)
+            resource_id = results.present? ? results[0]["#{klass_name.to_s.singularize}_id"] : nil
+
+            klass_name.to_s.classify.constantize.find(:all, params: { id: resource_id})
           end
         end
       end

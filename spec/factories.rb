@@ -21,10 +21,15 @@ FactoryGirl.define do
     email "neeraj.kumar@gmail.com"
   end
 
+  factory :price do
+    id 1
+    cost "100.00"
+  end
+
   factory :book do
     title "Title1"
     association :user, strategy: :build
-    association :reader, strategy: :build 
+    association :reader, strategy: :build
   end
 
   factory :friend do

@@ -4,6 +4,7 @@ class User < ActiveResource::Base
   include ActiveResourceAssociatable
 
   has_many_activeresources :books
+  has_and_belongs_to_many_activeresources :images
   has_many_through_activeresources :friends, through: :friendships
 end
 
@@ -13,7 +14,15 @@ class Reader < ActiveResource::Base
   include ActiveResourceAssociatable
 
   has_many_activeresources :studying_materials, class_name: "Book"
+  
+end
 
+class Price < ActiveResource::Base
+  self.site = ""
+
+  include ActiveResourceAssociatable
+
+  belongs_to_activeresource :book
 end
 
 class Book < ActiveRecord::Base
@@ -21,6 +30,7 @@ class Book < ActiveRecord::Base
 
   belongs_to_activeresource :user
   belongs_to_activeresource :reader
+  has_one_activeresource :price
 end
 
 class Account < ActiveRecord::Base
