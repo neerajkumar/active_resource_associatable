@@ -15,7 +15,7 @@ class Reader < ActiveResource::Base
 
   has_many_activeresources :studying_materials, class_name: "Book"
   belongs_to_activeresource :library
-  
+  has_one_activeresource :account
 end
 
 class Price < ActiveResource::Base
@@ -38,7 +38,7 @@ class Account < ActiveRecord::Base
   include ActiveResourceAssociatable
 
   has_one_activeresource :user
-
+  belongs_to_activeresource :account
 end
 
 class Library < ActiveRecord::Base

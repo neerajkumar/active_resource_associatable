@@ -9,6 +9,7 @@ ActiveRecord::Schema.define do
 
   create_table :accounts do |t|
     t.integer :user_id
+    t.integer :reader_id
   end
 
   create_table :images_users, id: false do |t|
