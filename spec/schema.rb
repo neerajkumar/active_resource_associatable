@@ -29,4 +29,8 @@ ActiveRecord::Schema.define do
     t.integer :user_id
     t.integer :friend_id
   end
+
+  create_table :libraries do |t|
+    t.string :name
+  end
 end

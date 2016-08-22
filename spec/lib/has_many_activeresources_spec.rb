@@ -42,4 +42,15 @@ describe ActiveResourceAssociatable do
     end
   end
 
+  it "should return many users for has_many_activeresources association with ActiveRecord class" do
+    reader = FactoryGirl.build(:reader)
+    Reader.stub :find, reader do 
+      library = FactoryGirl.create(:library)
+
+      assert !library.readers.empty?
+      assert library.readers.include?(reader)
+    end
+  end
+
+
 end

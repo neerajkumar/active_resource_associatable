@@ -19,6 +19,7 @@ FactoryGirl.define do
     lastname "Kumar"
     username "neeraj"
     email "neeraj.kumar@gmail.com"
+    association :library, strategy: :build
   end
 
   factory :price do
@@ -40,6 +41,10 @@ FactoryGirl.define do
   factory :friendship do
     association :friend, strategy: :build
     association :user, strategy: :build
+  end
+
+  factory :library do
+    name "P K Kelkar Library"
   end
 
 end
