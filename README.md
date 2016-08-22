@@ -87,6 +87,14 @@ end
 ```
 Now you can easily call ```user.books``` which will return the array of objects of non ActiveResource class Book.
 
+```ruby
+class Library < ActiveRecord::Base
+  include ActiveResourceAssociatable
+
+  has_many_activeresources :readers
+
+end
+```
 ```has_many_activeresources``` also comes with options ```class_name```.
 
 ```ruby
