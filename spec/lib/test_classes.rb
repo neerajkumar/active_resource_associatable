@@ -29,7 +29,7 @@ end
 class Book < ActiveRecord::Base
   include ActiveResourceAssociatable
 
-  belongs_to_activeresource :user
+  belongs_to_activeresource :user, class_name: 'UserResource'
   belongs_to_activeresource :reader
   has_one_activeresource :price
 end
@@ -37,7 +37,7 @@ end
 class Account < ActiveRecord::Base
   include ActiveResourceAssociatable
 
-  has_one_activeresource :user
+  has_one_activeresource :user, class_name: 'UserResource'
   belongs_to_activeresource :reader
 end
 
@@ -58,7 +58,7 @@ class Friend < ActiveRecord::Base
 
   include ActiveResourceAssociatable
 
-  has_many_through_activeresources :users, through: :friendships
+  has_many_through_activeresources :users, through: :friendships, class_name: 'UserResource'
 end
 
 class Friendship < ActiveRecord::Base

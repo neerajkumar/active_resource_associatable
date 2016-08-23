@@ -10,7 +10,7 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return one user for belongs_to_resource association for ActiveRecord class" do
-    User.stub :find, @user do 
+    UserResource.stub :find, @user do 
       book = Book.create(title: "New Book", user_id: @user.id)
       book.user.must_equal @user
     end

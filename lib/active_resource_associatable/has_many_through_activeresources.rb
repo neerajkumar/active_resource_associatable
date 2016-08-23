@@ -8,11 +8,11 @@ module AssociationBuilder
       model.class_eval do
         define_method(klass_name) do
           if self.is_a?(ActiveResource::Base)
-            associated_ids = middle_table.classify.constantize.where("#{model.collection_name.singularize}_id = ?", self.id).pluck("#{klass_name.singularize}_id".to_sym)
+            associated_ids = middle_table.classify.constantize.where("#{model.element_name.gsub('_resource', '')}_id = ?", self.id).pluck("#{klass_name.singularize}_id".to_sym)
             klass_name.classify.constantize.where(id: associated_ids)
           elsif self.is_a?(ActiveRecord::Base)
             associated_ids = middle_table.classify.constantize.where("#{model.table_name.singularize}_id = ?", self.id).pluck("#{klass_name.singularize}_id".to_sym)
-            klass_name.classify.constantize.find(:all, params:{id: associated_ids})
+            options[:class_name].classify.constantize.find(:all, params:{id: associated_ids})
           end
         end
       end

@@ -7,7 +7,7 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return many users for has_many_through_activeresources association for ActiveRecord class" do
-    User.stub :find, [@user] do 
+    UserResource.stub :find, [@user] do 
       friend = Friend.create(firstname: "Neeraj", lastname: "Kumar")
       friendship = Friendship.create(user_id: @user.id, friend_id: friend.id)
       assert !friend.users.empty?
@@ -16,9 +16,9 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return many users for has_many_through_activeresources association for ActiveResource class" do
-    User.stub :find, @user do
+    UserResource.stub :find, @user do
       Friendship.delete_all
-      user = User.first
+      user = UserResource.first
       assert user.friends.empty?
       
       friend = FactoryGirl.create(:friend)

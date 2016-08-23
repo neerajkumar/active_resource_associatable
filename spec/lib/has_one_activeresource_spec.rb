@@ -7,7 +7,7 @@ describe ActiveResourceAssociatable do
   end
 
   it "should return one user for has_one_activeresource association for ActiveRecord class" do
-    User.stub :find, @user do 
+    UserResource.stub :find, @user do 
       account = Account.create(user_id: @user.id)
       account.user.must_equal @user
     end

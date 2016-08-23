@@ -33,8 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "activeresource", "~> 4.0.0"
   spec.add_development_dependency "activesupport", "~> 4.2.5"
   spec.add_development_dependency "activerecord", "~> 4.2.5"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "mocha"
   spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "byebug"

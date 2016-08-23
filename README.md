@@ -38,7 +38,7 @@ end
 class Account < ActiveRecord::Base
   include ActiveResourceAssociatable
 
-  has_one_activeresource :user
+  has_one_activeresource :user, class_name: 'UserResource'
 end
 ```
 
@@ -82,7 +82,7 @@ end
 class Book < ActiveRecord::Base
   include ActiveResourceAssociatable
 
-  belongs_to_activeresource :user
+  belongs_to_activeresource :user, class_name: 'UserResource'
 end
 ```
 Now you can easily call ```user.books``` which will return the array of objects of non ActiveResource class Book.
@@ -181,7 +181,7 @@ class Friend < ActiveRecord::Base
 
   include ActiveResourceAssociatable
 
-  has_many_through_activeresources :users, through: :friendships
+  has_many_through_activeresources :users, through: :friendships, class_name: 'UserResource'
 end
 ```
 ```ruby
