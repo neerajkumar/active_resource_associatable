@@ -26,7 +26,7 @@ Or install it yourself as:
 Account is non ActiveResource class which is maintaining has one relationship with ActiveRecord class User. 
 
 ```ruby
-class User < ActiveResource::Base
+class UserResource < ActiveResource::Base
   self.site = ""
 
   include ActiveResourceAssociatable
@@ -70,7 +70,7 @@ The same example which explained above in Has One ActiveResource section could b
 User is ActiveResource class which maintains the has many relationships with non ActiveResource class Book.
 
 ```ruby
-class User < ActiveResource::Base
+class UserResource < ActiveResource::Base
   self.site = ""
 
   include ActiveResourceAssociatable
@@ -168,7 +168,7 @@ end
 ```has_many_through_activeresources``` can also be achieved using ```active_resource_associatable```. User can have many friends through friendships. Similarly, a friend can also have many users through friendships.
 
 ```ruby
-class User < ActiveResource::Base
+class UserResource < ActiveResource::Base
   self.site = ""
 
   include ActiveResourceAssociatable
